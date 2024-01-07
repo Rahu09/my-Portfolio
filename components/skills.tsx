@@ -7,7 +7,7 @@ import { useSectionInView } from "@/lib/hooks";
 import { motion } from "framer-motion";
 
 function Skills() {
-  const { ref } = useSectionInView("Projects");
+  const { ref } = useSectionInView("Skills");
 
   const fadeInAnimationVariants = {
     initial: {

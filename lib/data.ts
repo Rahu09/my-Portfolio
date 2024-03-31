@@ -2,9 +2,9 @@ import React from "react";
 import { CgWorkAlt } from "react-icons/cg";
 import { FaReact } from "react-icons/fa";
 import { LuGraduationCap } from "react-icons/lu";
-import corpcommentImg from "@/public/corpcomment.png";
-import rmtdevImg from "@/public/rmtdev.png";
 import wordanalyticsImg from "@/public/wordanalytics.png";
+import penAI from "@/public/penAI.png";
+import board from "@/public/board.png";
 
 export const links = [
   {
@@ -35,52 +35,69 @@ export const links = [
 
 export const experiencesData = [
   {
-    title: "Graduated bootcamp",
-    location: "Miami, FL",
+    title: "Java J2EE Internship",
+    location: "WFH, IN",
     description:
-      "I graduated after 6 months of studying. I immediately found a job as a front-end developer.",
-    icon: React.createElement(LuGraduationCap),
-    date: "2019",
-  },
-  {
-    title: "Front-End Developer",
-    location: "Orlando, FL",
-    description:
-      "I worked as a front-end developer for 2 years in 1 job and 1 year in another job. I also upskilled to the full stack.",
+      "I worked in a guided project in which needed implementaion of core and advanced concepts like JDBC, Servelet, API etc.",
     icon: React.createElement(CgWorkAlt),
-    date: "2019 - 2021",
+    date: "Feb 2022 - Sep 2022",
   },
   {
-    title: "Full-Stack Developer",
-    location: "Houston, TX",
+    title: "Compleated B.Tech",
+    location: "Bhopal, IN",
     description:
-      "I'm now a full-stack developer working as a freelancer. My stack includes React, Next.js, TypeScript, Tailwind, Prisma and MongoDB. I'm open to full-time opportunities.",
+      "I graduated after completing my 4 years degree in electronics and communication in april 2023.",
+    icon: React.createElement(LuGraduationCap),
+    date: "Aug 2019 - Mar 2023",
+  },
+
+  {
+    title: "Intern at Hexaware Technologies",
+    location: "WFH, IN",
+    description:
+      "I Worked as a full-time intern in Hexaware technologies and worked in a Java SpringBoot backend + React frontend.",
     icon: React.createElement(FaReact),
-    date: "2021 - present",
+    date: "sept 2023 - Mar 2024",
   },
 ] as const;
 
 export const projectsData = [
   {
-    title: "CorpComment",
+    title: "PEN.AI",
     description:
-      "I worked as a full-stack developer on this startup project for 2 years. Users can give public feedback to companies.",
-    tags: ["React", "Next.js", "MongoDB", "Tailwind", "Prisma"],
-    imageUrl: corpcommentImg,
+      "A SaaS platform that utilizes AI to interact with PDF documents using NEXT.JS. PINECONE as vector database for AI-powered PDF query capabilities.",
+    tags: [
+      "React",
+      "Next.js",
+      "PostgreSQL",
+      "ai",
+      "Tailwind",
+      "Prisma",
+      "Pinecone",
+      "Stripe",
+      "Uploadthing",
+    ],
+    imageUrl: penAI,
+    link: "https://pen-ai.vercel.app/",
+    github: "https://github.com/Rahu09/pen.AI",
   },
   {
-    title: "rmtDev",
+    title: "Library Management System",
     description:
-      "Job board for remote developer jobs. I was the front-end developer. It has features like filtering, sorting and pagination.",
-    tags: ["React", "TypeScript", "Next.js", "Tailwind", "Redux"],
-    imageUrl: rmtdevImg,
-  },
-  {
-    title: "Word Analytics",
-    description:
-      "A public web app for quick analytics on text. It shows word count, character count and social media post limits.",
-    tags: ["React", "Next.js", "SQL", "Tailwind", "Framer"],
+      "A complete LMS with features like book issue, return, fine calculation, and user management. Developed using React, SpringBoot, and MySQL.",
+    tags: ["React", "Java", "MySQL", "ReactQuery", "Tailwind", "SpringBoot"],
     imageUrl: wordanalyticsImg,
+    link: "",
+    github: "https://github.com/Rahu09/lms",
+  },
+  {
+    title: "BOARD",
+    description:
+      "A collaborative, real-time whiteboard. Implemented real-time database using Convex and LiveBlocks and Developed whiteboard features from scratch.",
+    tags: ["Convex", "Next.js", "Tailwind", "TypeScript", "LiveBlocks"],
+    imageUrl: board,
+    link: "https://drew-board.vercel.app/",
+    github: "https://github.com/Rahu09/drew_board",
   },
 ] as const;
 
@@ -91,17 +108,17 @@ export const skillsData = [
   "TypeScript",
   "React",
   "Next.js",
+  "Java",
+  "SpringBoot",
   "Node.js",
   "Git",
+  "WebSockets",
   "Tailwind",
   "Prisma",
   "MongoDB",
   "Redux",
-  "GraphQL",
   "Apollo",
   "Express",
   "PostgreSQL",
-  "Python",
-  "Django",
   "Framer Motion",
 ] as const;

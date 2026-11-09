@@ -1,4 +1,5 @@
 import Header from "@/components/header";
+import "@fontsource-variable/inter";
 import "./globals.css";
 import ActiveSectionContextProvider from "@/context/active-section-context";
 import { Toaster } from "react-hot-toast";

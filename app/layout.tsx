@@ -1,36 +1,41 @@
-import type { Metadata, Viewport } from "next";
+import Header from "@/components/header";
 import "./globals.css";
-import { site } from "@/lib/content";
+import ActiveSectionContextProvider from "@/context/active-section-context";
+import { Toaster } from "react-hot-toast";
+import Footer from "@/components/footer";
+import ThemeSwitch from "@/components/theme-switch";
+import ThemeContextProvider from "@/context/theme-context";
 
-export const metadata: Metadata = {
-  title: `${site.name} | AI-native backend engineer`,
+export const metadata = {
+  title: "Rahul Tiwari | AI-native backend engineer",
   description:
-    "Rahul Tiwari builds reliable backend systems and production GenAI in Java, Spring Boot and Spring AI. Software Engineer on Citi's branded cards platform.",
-  openGraph: {
-    title: `${site.name} | AI-native backend engineer`,
-    description:
-      "Java and Spring Boot backends for card payments, and LLM tooling tested like production code.",
-    type: "website",
-  },
+    "Rahul Tiwari builds reliable backend systems and production GenAI with Java, Spring Boot and Spring AI.",
 };
 
-export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#edf0f4" },
-    { media: "(prefers-color-scheme: dark)", color: "#0f1626" },
-  ],
-};
-
-// Sets the theme before first paint so there is no flash of the wrong theme.
-const themeScript = `(function(){document.documentElement.classList.add("js");try{var t=localStorage.getItem("theme");if(!t){t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme="light"}})();`;
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-      </head>
-      <body>{children}</body>
+    <html lang="en" className="!scroll-smooth" suppressHydrationWarning>
+      <body
+        className={`font-sans bg-gray-50 text-gray-950 relative pt-28 sm:pt-36 dark:bg-gray-900 dark:text-gray-50/90`}
+      >
+        <div className="bg-[#fbe2e3] absolute top-[-6rem] -z-10 right-[11rem] h-[31.25rem] w-[31.25rem] rounded-full blur-[10rem] sm:w-[68.75rem] dark:bg-[#946263]"></div>
+        <div className="bg-[#dbd7fb] absolute top-[-1rem] -z-10 left-[-35rem] h-[31.25rem] w-[50rem] rounded-full blur-[10rem] sm:w-[68.75rem] md:left-[-33rem] lg:left-[-28rem] xl:left-[-15rem] 2xl:left-[-5rem] dark:bg-[#676394]"></div>
+
+        <ThemeContextProvider>
+          <ActiveSectionContextProvider>
+            <Header />
+            {children}
+            <Footer />
+
+            <Toaster position="top-right" />
+            <ThemeSwitch />
+          </ActiveSectionContextProvider>
+        </ThemeContextProvider>
+      </body>
     </html>
   );
 }

@@ -11,12 +11,12 @@ Node 20.9+ is required (`engines` in package.json overrides the Vercel project's
 
 ## Where things live
 
-- `lib/content.ts` — **all copy**: impact numbers, projects, experience, skills, certifications. Edit content here, not in components.
-- `app/page.tsx` — page layout and sections.
-- `app/globals.css` — color tokens (light and dark), fonts, and all animations.
-- `app/actions.ts` + `components/contact-form.tsx` — contact form (server action, Resend). Needs `RESEND_API_KEY`.
-- `components/review-diff.tsx` — hero code-review diff (illustrative code, not from any employer).
-- `components/section-nav.tsx`, `count-up.tsx`, `in-view.tsx` — scroll-driven animations.
+- `lib/data.ts` — **all copy**: nav links, impact numbers, projects, experience timeline, skills, certifications, contact links. Edit content here, not in components.
+- `app/page.tsx` — section order: Intro, About, Impact, Projects, Skills (+ certifications), Experience, Contact.
+- `components/` — one file per section, in the original portfolio template style.
+- `actions/sendEmail.ts` — contact form server action (Resend). Needs `RESEND_API_KEY`.
+- `context/` — active-section and theme state. `lib/hooks.ts` — `useSectionInView` keeps the nav pill in sync.
+- `public/aiPrReviewer.png` — project image, a render of an illustrative AI PR Reviewer finding (invented code, not from any employer).
 
 ## Positioning and content rules
 
@@ -27,15 +27,15 @@ Node 20.9+ is required (`engines` in package.json overrides the Vercel project's
 
 ## Design rules
 
-- Palette: cool slate paper `#EDF0F4`, white, navy ink `#14213D`, muted `#5B6577`, one accent — highlighter yellow `#FFD84D`. Diff green/red only inside code.
-- Type: IBM Plex Sans Condensed (display), IBM Plex Sans (body), JetBrains Mono only for real code. Fonts are self-hosted via @fontsource (Google Fonts isn't reachable in some build environments).
-- Left-aligned layout; grouped rows rather than card grids. No all-caps eyebrow labels.
-- Animations: CSS + IntersectionObserver, no animation library. Gate scroll animations on the `.js` class on `<html>` so content shows without JavaScript, and disable them under `prefers-reduced-motion`.
+- Keep the original template look: centered layout, pink/purple blurred background blobs, round photo with 👋, floating pill nav, gray project cards with tilting screenshots, white bordered pills for skills, vertical timeline, theme button bottom-right. The owner prefers this style; don't redesign it.
+- Font: Inter, self-hosted via @fontsource (Google Fonts isn't reachable in some build environments).
+- Animations use framer-motion (page-load entrance, `layoutId` nav pill, scroll-linked project cards, staggered pills, count-up impact numbers) plus react-vertical-timeline-component.
+- Tailwind 4: use slash opacity syntax (`bg-white/80`), not `bg-opacity-*`. Dark mode is the `.dark` class on `<html>`.
 
 ## Open items
 
 - [ ] Add `public/Rahul_Tiwari_Resume.pdf` (phone number removed). The "Download resume" button points there.
 - [ ] Confirm `RESEND_API_KEY` is set in Vercel.
 - [ ] Check the four Claude certification names against the actual badges.
-- [ ] Add a new profile photo once it's ready (hero has no photo for now).
+- [ ] Replace `public/IMG_20220318_231444.jpg` with the new profile photo once it's ready.
 - [ ] Merge PR #1 (`redesign-2026` → `main`).

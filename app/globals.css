@@ -1,15 +1,137 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "@fontsource-variable/ibm-plex-sans/index.css";
+@import "@fontsource/ibm-plex-sans-condensed/latin-600.css";
+@import "@fontsource/ibm-plex-sans-condensed/latin-700.css";
+@import "@fontsource-variable/jetbrains-mono/index.css";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* Palette: cool slate paper, navy ink, one reviewer's-highlighter accent.
+   Diff green/red are reserved for code. */
+:root {
+  --paper: #edf0f4;
+  --surface: #ffffff;
+  --ink: #14213d;
+  --muted: #5b6577;
+  --rule: #d3d9e2;
+  --mark: #ffd84d;
+  --mark-ink: #14213d;
+  --add-bg: #e3f4ea;
+  --add-ink: #1f7a4d;
+  --del-bg: #fbe7e5;
+  --del-ink: #b42318;
+  --code-bg: #f7f9fb;
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --paper: #0f1626;
+  --surface: #162038;
+  --ink: #e6eaf2;
+  --muted: #9aa5ba;
+  --rule: #26324d;
+  --mark: #e8c547;
+  --mark-ink: #0f1626;
+  --add-bg: #13301f;
+  --add-ink: #7fd4a2;
+  --del-bg: #3a1a1c;
+  --del-ink: #f2a39b;
+  --code-bg: #121b30;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-rule: var(--rule);
+  --color-mark: var(--mark);
+  --color-mark-ink: var(--mark-ink);
+  --color-add-bg: var(--add-bg);
+  --color-add-ink: var(--add-ink);
+  --color-del-bg: var(--del-bg);
+  --color-del-ink: var(--del-ink);
+  --color-code-bg: var(--code-bg);
+  --font-sans: "IBM Plex Sans Variable", system-ui, sans-serif;
+  --font-display: "IBM Plex Sans Condensed", "IBM Plex Sans Variable", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+}
+
+code, .font-mono {
+  font-variant-ligatures: none;
+}
 
 html {
-  --line-color: #e5e7eb;
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
-html.dark {
-  --line-color: rgba(255, 255, 255, 0.2);
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "tnum" 0;
 }
 
-.borderBlack {
-  @apply border border-black/10;
+::selection {
+  background: var(--mark);
+  color: var(--mark-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Highlighter stroke used on links in running text */
+.marked {
+  background-image: linear-gradient(var(--mark), var(--mark));
+  background-size: 100% 0.2em;
+  background-position: 0 100%;
+  padding-bottom: 0.05em;
+  background-repeat: no-repeat;
+  transition: background-size 160ms ease;
+}
+.marked:hover {
+  background-size: 100% 100%;
+  color: var(--mark-ink);
+}
+
+/* The single orchestrated moment: the reviewer scans the diff, marks the risky
+   line, then its comment appears. */
+@keyframes scan {
+  from { transform: translateY(0); opacity: 0.9; }
+  to { transform: translateY(var(--scan-to)); opacity: 0; }
+}
+@keyframes mark-line {
+  from { background-size: 0% 100%; }
+  to { background-size: 100% 100%; }
+}
+@keyframes comment-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.diff-scan {
+  animation: scan 900ms cubic-bezier(0.4, 0, 0.2, 1) 300ms both;
+}
+.diff-flagged {
+  background-image: linear-gradient(color-mix(in srgb, var(--mark) 55%, transparent), color-mix(in srgb, var(--mark) 55%, transparent));
+  background-repeat: no-repeat;
+  animation: mark-line 380ms ease-out 1150ms both;
+}
+.diff-comment {
+  animation: comment-in 420ms ease-out 1450ms both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .diff-scan { display: none; }
+  .diff-flagged, .diff-comment { animation: none; }
+  .marked { transition: none; }
 }

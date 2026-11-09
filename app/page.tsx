@@ -2,6 +2,9 @@ import Image from "next/image";
 import ReviewDiff from "@/components/review-diff";
 import ThemeToggle from "@/components/theme-toggle";
 import ContactForm from "@/components/contact-form";
+import SectionNav from "@/components/section-nav";
+import InView from "@/components/in-view";
+import CountUp from "@/components/count-up";
 import { GitHubIcon, LinkedInIcon } from "@/components/icons";
 import {
   certifications,
@@ -19,12 +22,12 @@ const wrap = "mx-auto w-full max-w-[72rem] px-5 sm:px-8";
 
 function SectionHeading({ id, children, intro }: { id: string; children: React.ReactNode; intro?: React.ReactNode }) {
   return (
-    <header className="mb-10 max-w-[44rem] sm:mb-14">
-      <h2 id={`${id}-title`} className="m-0 font-display text-[2.25rem] font-bold leading-[1.05] tracking-[-0.01em] sm:text-[2.75rem]">
-        {children}
+    <InView as="header" className="mb-10 max-w-[44rem] sm:mb-14">
+      <h2 id={`${id}-title`} className="m-0 font-display text-[2.25rem] font-bold leading-[1.15] tracking-[-0.01em] sm:text-[2.75rem]">
+        <span className="swipe">{children}</span>
       </h2>
       {intro ? <p className="mt-4 mb-0 text-lg text-muted">{intro}</p> : null}
-    </header>
+    </InView>
   );
 }
 
@@ -59,15 +62,7 @@ export default function Home() {
             {site.name}
           </a>
           <nav aria-label="Sections" className="flex items-center gap-1">
-            <ul className="m-0 hidden list-none gap-1 p-0 md:flex">
-              {nav.map((item) => (
-                <li key={item.href}>
-                  <a href={item.href} className="rounded-md px-3 py-2 text-[0.95rem] text-muted hover:bg-surface hover:text-ink">
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <SectionNav items={nav} />
             <ThemeToggle />
           </nav>
         </div>
@@ -124,7 +119,7 @@ export default function Home() {
                   <dl className="m-0 border-t border-ink/80">
                     {group.rows.map((row) => (
                       <div key={row.figure + row.text} className="grid grid-cols-[6.5rem_minmax(0,1fr)] gap-4 border-b border-rule py-4 sm:grid-cols-[9rem_minmax(0,1fr)] sm:gap-6">
-                        <dt className="font-display text-[1.75rem] font-bold leading-none tabular-nums sm:text-[2.25rem]">{row.figure}</dt>
+                        <CountUp figure={row.figure} className="font-display text-[1.75rem] font-bold leading-none tabular-nums sm:text-[2.25rem]" />
                         <dd className="m-0 max-w-[40rem] self-center">{row.text}</dd>
                       </div>
                     ))}
@@ -162,9 +157,10 @@ export default function Home() {
             </article>
 
             <div className="mt-20 grid gap-14 md:grid-cols-2 md:gap-10">
-              {projects.map((project) => (
+              {projects.map((project, i) => (
                 <article key={project.name} className="flex flex-col">
                   {project.image ? (
+                    <InView className="reveal" style={{ transitionDelay: `${i * 140}ms` }}>
                     <Image
                       src={project.image.src}
                       alt={project.image.alt}
@@ -173,6 +169,7 @@ export default function Home() {
                       className="aspect-video w-full rounded-lg border border-rule object-cover object-top"
                       sizes="(min-width: 768px) 36rem, 100vw"
                     />
+                    </InView>
                   ) : null}
                   <h3 className="mt-6 mb-0 font-display text-[1.6rem] font-bold">{project.name}</h3>
                   <p className="mt-2 mb-0">{project.summary}</p>
@@ -234,7 +231,9 @@ export default function Home() {
               </dl>
             </div>
             <div>
-              <h2 className="m-0 mb-10 font-display text-[2.25rem] font-bold leading-[1.05] sm:mb-14 sm:text-[2.75rem]">Certifications</h2>
+              <InView as="h2" className="m-0 mb-10 font-display text-[2.25rem] font-bold leading-[1.15] sm:mb-14 sm:text-[2.75rem]">
+                <span className="swipe">Certifications</span>
+              </InView>
               <ul className="m-0 list-none p-0">
                 {certifications.map((c) => (
                   <li key={c.name} className="border-t border-rule py-3.5 first:border-t-ink/80">

@@ -22,7 +22,7 @@ export const viewport: Viewport = {
 };
 
 // Sets the theme before first paint so there is no flash of the wrong theme.
-const themeScript = `(function(){try{var t=localStorage.getItem("theme");if(!t){t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme="light"}})();`;
+const themeScript = `(function(){document.documentElement.classList.add("js");try{var t=localStorage.getItem("theme");if(!t){t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme="light"}})();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

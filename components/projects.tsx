@@ -4,6 +4,7 @@ import React from "react";
 import SectionHeading from "./section-heading";
 import { projectsData } from "@/lib/data";
 import Project from "./project";
+import PrReviewReplay from "./pr-review-replay";
 import { useSectionInView } from "@/lib/hooks";
 
 function Projects() {
@@ -13,9 +14,15 @@ function Projects() {
       <SectionHeading>My Projects</SectionHeading>
       <div>
         {projectsData.map((project, index) => (
-          <React.Fragment key={index}>
-            <Project {...project} />
-          </React.Fragment>
+          project.title === "AI PR Reviewer" ? (
+            // One wrapper keeps the odd/even card layout of the projects that follow.
+            <div key={index}>
+              <Project {...project} />
+              <PrReviewReplay />
+            </div>
+          ) : (
+            <Project key={index} {...project} />
+          )
         ))}
       </div>
     </section>

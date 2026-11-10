@@ -34,7 +34,7 @@ Node 20.9+ is required (`engines` in package.json overrides the Vercel project's
 
 ## Open items
 
-- [ ] Add `public/Rahul_Tiwari_Resume.pdf` (phone number removed). The "Download resume" button points there.
+- [x] Add `public/Rahul_Tiwari_Resume.pdf` (phone number removed). The "Download resume" button points there. Keep the phone number out when replacing it.
 - [ ] Confirm `RESEND_API_KEY` is set in Vercel.
 - [ ] Check the four Claude certification names against the actual badges.
 - [ ] Replace `public/IMG_20220318_231444.jpg` with the new profile photo once it's ready.

@@ -2,7 +2,7 @@
 
 import React from "react";
 import SectionHeading from "./section-heading";
-import { skillsData } from "@/lib/data";
+import { certificationsData, skillsData } from "@/lib/data";
 import { useSectionInView } from "@/lib/hooks";
 import { motion } from "framer-motion";
 
@@ -45,6 +45,25 @@ function Skills() {
             custom={index}
           >
             {skill}
+          </motion.li>
+        ))}
+      </ul>
+
+      <h3 className="mt-16 mb-6 text-2xl font-medium">Certifications</h3>
+      <ul className="flex flex-wrap justify-center gap-2 text-lg text-gray-800">
+        {certificationsData.map((cert, index) => (
+          <motion.li
+            className="bg-white borderBlack rounded-xl px-5 py-3 dark:bg-white/10 dark:text-white/80"
+            key={cert}
+            variants={fadeInAnimationVariants}
+            initial="initial"
+            whileInView="animate"
+            viewport={{
+              once: true,
+            }}
+            custom={index}
+          >
+            {cert}
           </motion.li>
         ))}
       </ul>

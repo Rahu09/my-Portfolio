@@ -5,11 +5,10 @@ import React from "react";
 import { FaGithubSquare } from "react-icons/fa";
 import { BsArrowRight, BsLinkedin } from "react-icons/bs";
 import { HiDownload } from "react-icons/hi";
-import Link from "next/link";
 import { useActiveSectionContext } from "@/context/active-section-context";
 import { useSectionInView } from "@/lib/hooks";
+import { siteLinks } from "@/lib/data";
 
-// import {IMG}
 
 function Intro() {
   const { ref } = useSectionInView("Home", 0.5);
@@ -62,12 +61,12 @@ function Intro() {
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <span className="font-bold">Hello, I'm Rahul.</span> I'm a{" "}
-        <span className="font-bold">full-stack developer</span> with{" "}
-        <span className="font-bold">a year</span> of experience. I enjoy
-        building <span className="italic">sites & apps</span>. My focus is{" "}
-        <span className="underline">React (Next.js)</span> &{" "}
-        <span className="underline">Java(SpringBoot)</span>.
+        <span className="font-bold">Hello, I&apos;m Rahul.</span> I&apos;m an{" "}
+        <span className="font-bold">AI-native backend engineer</span> with{" "}
+        <span className="font-bold">3 years</span> of experience. I build{" "}
+        <span className="italic">reliable, AI-powered systems</span>. My focus
+        is <span className="underline">Java (Spring Boot)</span> &{" "}
+        <span className="underline">production GenAI</span>.
       </motion.h1>
 
       <motion.div
@@ -78,7 +77,7 @@ function Intro() {
           delay: 0.1,
         }}
       >
-        <Link
+        <a
           href="#contact"
           className="group bg-gray-900 text-white px-7 py-3 flex items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110 hover:bg-gray-950 active:scale-105 transition"
           onClick={() => {
@@ -88,11 +87,11 @@ function Intro() {
         >
           Contact me here{" "}
           <BsArrowRight className="opacity-70 group-hover:translate-x-1 transition" />
-        </Link>
+        </a>
 
         <a
           className="group bg-white px-7 py-3 flex items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110 active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10"
-          href="\RAHUL_TIWARI.pdf"
+          href={siteLinks.resume}
           download
         >
           Download CV{" "}
@@ -101,16 +100,18 @@ function Intro() {
 
         <a
           className="bg-white p-4 text-gray-700 hover:text-gray-950 flex items-center gap-2 rounded-full focus:scale-[1.15] hover:scale-[1.15] active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
-          href="https://www.linkedin.com/in/rahul-tiwari-331521202/"
+          href={siteLinks.linkedin}
           target="_blank"
+          rel="noreferrer"
         >
           <BsLinkedin />
         </a>
 
         <a
           className="bg-white p-4 text-gray-700 flex items-center gap-2 text-[1.35rem] rounded-full focus:scale-[1.15] hover:scale-[1.15] hover:text-gray-950 active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
-          href="https://github.com/Rahu09"
+          href={siteLinks.github}
           target="_blank"
+          rel="noreferrer"
         >
           <FaGithubSquare />
         </a>

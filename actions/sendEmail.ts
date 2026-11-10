@@ -1,48 +1,43 @@
 "use server";
 
-import React from "react";
 import { Resend } from "resend";
 import { validateString, getErrorMessage } from "@/lib/utils";
-import ContactFormEmail from "@/email/contact-form-email";
+import { siteLinks } from "@/lib/data";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export const sendEmail = async (formData: FormData) => {
   const senderEmail = formData.get("senderEmail");
   const message = formData.get("message");
 
   // simple server-side validation
-  if (!validateString(senderEmail, 500)) {
-    return {
-      error: "Invalid sender email",
-    };
+  if (!validateString(senderEmail, 500) || !EMAIL_RE.test(senderEmail)) {
+    return { error: "Enter a valid email address so I can reply." };
   }
   if (!validateString(message, 5000)) {
+    return { error: "Add a message (up to 5,000 characters)." };
+  }
+
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
     return {
-      error: "Invalid message",
+      error: `The form isn't connected right now. Email me at ${siteLinks.email}.`,
     };
   }
 
-  let data;
   try {
-    data = await resend.emails.send({
+    const resend = new Resend(apiKey);
+    const { error } = await resend.emails.send({
       from: "Contact Form <onboarding@resend.dev>",
-      to: "tiwarirahul0809@gmail.com",
+      to: siteLinks.email,
       subject: "Message from contact form",
-      reply_to: senderEmail,
-
-      react: React.createElement(ContactFormEmail, {
-        message: message,
-        senderEmail: senderEmail,
-      }),
+      replyTo: senderEmail,
+      text: `${message}\n\nSender's email: ${senderEmail}`,
     });
+    if (error) throw new Error(error.message);
   } catch (error: unknown) {
-    return {
-      error: getErrorMessage(error),
-    };
+    return { error: getErrorMessage(error) };
   }
 
-  return {
-    data,
-  };
+  return { error: null };
 };
